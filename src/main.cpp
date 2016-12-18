@@ -50,8 +50,9 @@ int main(void) {
 		ClearScreen();
 	//	if (JoYAct.ButtonStates & BUTTON_SELECT) continue;
 	//	DrawObjects();
-		Map map;
-		map.Square(SCREENBUF);
+		Map map(SCREENBUF);
+//		map.Square();
+		map.DrawMap();
 
 	}
 }

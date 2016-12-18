@@ -8,24 +8,29 @@
 #ifndef SRC_MAP_H_
 #define SRC_MAP_H_
 
-#include "main.h"
 #include "peripherals.h"
+#include "Sprite.h"
 
 class Map {
 private:
 	int height;
 	int width;
+	unsigned long * graph;
 enum Area
 {
 	WALL,
-	EMPTY
+	FOOD,
+	SNAKE_HEAD,
+	SNAKE,
+	BACKGROUND
 };
 Area **map;
+Sprite ***sprite;
 public:
-	Map();
+	Map(unsigned long*);
 	virtual ~Map();
-	void Square(unsigned long*);
-	void DrawMap(unsigned long*);
+	void Square();
+	void DrawMap();
 };
 
 #endif /* SRC_MAP_H_ */
