@@ -1,0 +1,6 @@
+LIBRARY RPiLAB_DISC.dll 
+EXPORTS
+   Rpi_init00 @1
+   Get_Credits @2
+   TimerA @3
+   
