@@ -17,6 +17,7 @@ class Map {
 private:
 	int height;
 	int width;
+	int playerX, playerY;
 	unsigned long * graph;
 enum Area
 {

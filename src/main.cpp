@@ -52,6 +52,8 @@ int main(void) {
 	//	if (JoYAct.ButtonStates & BUTTON_SELECT) continue;
 	//	DrawObjects();
 //		map.Square();
+		map.UpdateMap();
+		map.UpdateSprite();
 		map.DrawMap();
 
 	}

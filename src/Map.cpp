@@ -34,7 +34,11 @@ Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph)
 			else if (map[y][x] == FOOD)
 				sprite[y][x] = new Food(x,y,graph);
 			else if (map[y][x] == SNAKE_HEAD)
+			{
+				playerY = y;
+				playerX = x;
 				sprite[y][x] = new SnakeHead(x,y,graph);
+			}
 		}
 }
 Map::~Map()
@@ -45,7 +49,15 @@ Map::~Map()
 	}
 	delete[] map;
 
-	// dopisac delete dla Sprite
+	for( int i = 0; i < height; i++)
+	{
+		for( int x = 0; x < width; x++)
+			delete[] sprite[i][x];
+		delete[] sprite[i];
+	}
+	delete[] sprite;
+
+
 }
 
 void Map::LoadLevel(std::string name)
@@ -84,7 +96,8 @@ void Map::DrawMap()
 
 void Map::UpdateMap()
 {
-
+	map[playerY][playerX++] = BACKGROUND;
+	map[playerY][playerX] = SNAKE_HEAD;
 }
 
 void Map::UpdateSprite()
@@ -92,6 +105,7 @@ void Map::UpdateSprite()
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
 		{
+			delete sprite[y][x];
 			if(map[y][x] == WALL)
 				sprite[y][x] = new Wall(x,y,graph);
 			else if (map[y][x] == BACKGROUND)
