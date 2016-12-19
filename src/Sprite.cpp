@@ -9,12 +9,12 @@
 
 // klasa Sprite
 Sprite::Sprite(unsigned long * _graph): x(0), y(0), color(BLACK), graph(_graph) {}
-Sprite::Sprite(int _x, int _y,unsigned long * _graph) : x(_x*20), y(_y*20), color(BLACK), graph(_graph) {}
+Sprite::Sprite(int _x, int _y,unsigned long * _graph) : x(_x*16), y(_y*16), color(BLACK), graph(_graph) {}
 Sprite::~Sprite() { }
 
 // klasa Background
-Background::Background(unsigned long * _graph) : Sprite(_graph), size(20) { color = WHITE; }
-Background::Background(int _x, int _y,unsigned long * _graph) : Sprite(_x, _y,_graph), size(20) { color = WHITE; }
+Background::Background(unsigned long * _graph) : Sprite(_graph), size(16) { color = WHITE; }
+Background::Background(int _x, int _y,unsigned long * _graph) : Sprite(_x, _y,_graph), size(16) { color = WHITE; }
 Background::~Background() {}
 void Background::Draw()
 {
@@ -24,8 +24,8 @@ void Background::Draw()
 }
 
 // klasa Wall
-Wall::Wall(unsigned long * _graph) : Sprite(_graph), size(20) { color = BLACK;}
-Wall::Wall(int _x, int _y,unsigned long * _graph) : Sprite(_x, _y,_graph), size(20) { color = BLACK;}
+Wall::Wall(unsigned long * _graph) : Sprite(_graph), size(16) { color = BLACK;}
+Wall::Wall(int _x, int _y,unsigned long * _graph) : Sprite(_x, _y,_graph), size(16) { color = BLACK;}
 Wall::~Wall() {}
 void Wall::Draw()
 {
@@ -35,8 +35,8 @@ void Wall::Draw()
 }
 
 // klasa Food
-Food::Food(unsigned long * _graph) : Sprite(_graph), radius(10) { color = BLUE;}
-Food::Food(int _x, int _y,unsigned long * _graph) : Sprite(_x, _y,_graph), radius(10) { color = BLUE;}
+Food::Food(unsigned long * _graph) : Sprite(_graph), radius(8) { color = BLUE;}
+Food::Food(int _x, int _y,unsigned long * _graph) : Sprite(_x, _y,_graph), radius(8) { color = BLUE;}
 Food::~Food() {}
 void Food::Draw()
 {

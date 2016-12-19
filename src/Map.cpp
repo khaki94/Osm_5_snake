@@ -7,7 +7,7 @@
 
 #include "Map.h"
 
-Map::Map(unsigned long *_graph): height(24), width(32), graph(_graph)
+Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph)
 {
 	map = new Area *[height];
 	for( int i = 0; i < height; i++)
@@ -45,16 +45,6 @@ Map::~Map()
 		delete[] map[i];
 	}
 	delete[] map;
-}
-
-void Map::Square()
-{
-	static int i = 0;
-	for(int x = 0; x < 20;x++)
-		for(int y = 0; y < 20; y++)
-			SetPixel(graph,x+(20*i),y,0xFFFF00);
-	if( i++ > 31)
-		i = 0;
 }
 
 void Map::DrawMap()
