@@ -10,6 +10,8 @@
 
 #include "peripherals.h"
 #include "Sprite.h"
+#include <fstream>
+#include <string>
 
 class Map {
 private:
@@ -31,6 +33,7 @@ public:
 	virtual ~Map();
 	void Square();
 	void DrawMap();
+	void LoadLevel(std::string name);
 };
 
 #endif /* SRC_MAP_H_ */

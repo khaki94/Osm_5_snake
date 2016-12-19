@@ -14,14 +14,8 @@ Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph)
 	{
 		map[i] = new Area[width];
 	}
-	for(int y = 0; y < height; y++)
-		for(int x = 0; x < width; x++)
-		{
-			if( (x*y == 0) || (y == (height-1)) || (x == (width-1))  )
-				map[y][x] = WALL;
-			else
-				map[y][x] = BACKGROUND;
-		}
+
+	LoadLevel("level1.txt");
 
 	sprite = new Sprite **[height];
 	for( int i = 0; i < height; i++)
@@ -45,6 +39,24 @@ Map::~Map()
 		delete[] map[i];
 	}
 	delete[] map;
+}
+
+void Map::LoadLevel(std::string name)
+{
+	std::fstream file;
+	int tmp;
+	file.open(name.c_str(), std::ios::in);
+	for(int y = 0; y < height; y++)
+		for(int x = 0; x < width; x++)
+		{
+			file >> tmp;
+			if( tmp == 0)
+				map[y][x] = BACKGROUND;
+			else if( tmp == 1)
+				map[y][x] = WALL;
+
+			}
+	file.close();
 }
 
 void Map::DrawMap()
