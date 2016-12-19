@@ -41,6 +41,7 @@ void Square()
 }
 
 int main(void) {
+	Map map(SCREENBUF);
 	if (SystemInit())		return EXIT_HALT;
 	DataPrepare();
 	while (1) {
@@ -50,7 +51,6 @@ int main(void) {
 		ClearScreen();
 	//	if (JoYAct.ButtonStates & BUTTON_SELECT) continue;
 	//	DrawObjects();
-		Map map(SCREENBUF);
 //		map.Square();
 		map.DrawMap();
 

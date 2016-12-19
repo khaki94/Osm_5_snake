@@ -66,4 +66,23 @@ public:
 	void Draw();
 };
 
+class SnakeHead : public Sprite
+{
+	const int size;
+public:
+	SnakeHead(unsigned long * _graph);
+	SnakeHead(int _x, int _y,unsigned long * _graph);
+	virtual ~SnakeHead();
+	void Draw();
+};
+
+class SnakeTail : public Sprite
+{
+	const int size;
+public:
+	SnakeTail(unsigned long * _graph);
+	SnakeTail(int _x, int _y,unsigned long * _graph);
+	virtual ~SnakeTail();
+	void Draw();
+};
 #endif /* SRC_SPRITE_H_ */

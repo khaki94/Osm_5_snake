@@ -49,4 +49,29 @@ void Food::Draw()
 
 }
 
+SnakeHead::SnakeHead(unsigned long * _graph) : Sprite(_graph), size(16) { color = RED;}
+SnakeHead::SnakeHead(int _x, int _y,unsigned long * _graph) : Sprite(_x, _y,_graph), size(16) { color = RED;}
+SnakeHead::~SnakeHead() {}
+void SnakeHead::Draw()
+{
+	for( int _y = 0; _y < size; _y++ )
+		for(int _x = 0; _x < size; _x++)
+		{
+			SetPixel(graph,(_x+x),(_y+y),color);
+		}
+
+}
+
+SnakeTail::SnakeTail(unsigned long * _graph) : Sprite(_graph), size(16) { color = CYAN;}
+SnakeTail::SnakeTail(int _x, int _y,unsigned long * _graph) : Sprite(_x, _y,_graph), size(16) { color = CYAN;}
+SnakeTail::~SnakeTail() {}
+void SnakeTail::Draw()
+{
+	for( int _y = 0; _y < size; _y++ )
+		for(int _x = 0; _x < size; _x++)
+		{
+			SetPixel(graph,(_x+x),(_y+y),color);
+		}
+
+}
 

@@ -23,7 +23,7 @@ enum Area
 	WALL,
 	FOOD,
 	SNAKE_HEAD,
-	SNAKE,
+	SNAKE_TAIL,
 	BACKGROUND
 };
 Area **map;
@@ -34,6 +34,8 @@ public:
 	void Square();
 	void DrawMap();
 	void LoadLevel(std::string name);
+	void UpdateMap();
+	void UpdateSprite();
 };
 
 #endif /* SRC_MAP_H_ */
