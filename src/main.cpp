@@ -27,8 +27,18 @@ int stage = 0;
 int frame_count = 0;
 int Jxt = 0, Jyt = 0, Jx = 0, Jy = 0, Jz = 0, JRz = 0;
 
+// moje zmienne
+int counter = 0;
+bool frame = true;
 
-
+Map::Walk GetKey()
+{
+	if( getKey() ==  92)
+		return Map::GO_LEFT;
+	if (getKey() == 94)
+		return Map::GO_RIGHT;
+	return Map::GO_FORWARD;
+}
 
 int main(void) {
 	Map map(SCREENBUF);
@@ -41,8 +51,13 @@ int main(void) {
 		ClearScreen();
 	//	if (JoYAct.ButtonStates & BUTTON_SELECT) continue;
 	//	DrawObjects();
-		map.UpdateMap(Map::GO_LEFT);
-		map.UpdateSprite();
+		if(frame)
+		{
+			frame = false;
+			map.UpdateMap(GetKey());
+			map.UpdateSprite();
+		}
+
 		map.DrawMap();
 
 	}
@@ -60,6 +75,11 @@ void TimerIsr() {
 		RegisterSet(GPSET1, 1 << (47 - 32));
 	else
 		RegisterSet(GPCLR1, 1 << (47 - 32));
+	if(counter++ > 250)
+	{
+		counter = 0;
+		frame = true;
+	}
 }
 
 void DrawObjects() {
