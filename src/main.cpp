@@ -57,9 +57,7 @@ int main(void) {
 			map.UpdateMap(GetKey());
 			map.UpdateSprite();
 		}
-
 		map.DrawMap();
-
 	}
 }
 
