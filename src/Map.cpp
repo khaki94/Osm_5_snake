@@ -52,7 +52,7 @@ Map::~Map()
 	for( int i = 0; i < height; i++)
 	{
 		for( int x = 0; x < width; x++)
-			delete[] sprite[i][x];
+			delete sprite[i][x];
 		delete[] sprite[i];
 	}
 	delete[] sprite;
@@ -96,8 +96,11 @@ void Map::DrawMap()
 
 void Map::UpdateMap()
 {
-	map[playerY][playerX++] = BACKGROUND;
-	map[playerY][playerX] = SNAKE_HEAD;
+	if( playerX < width-2)
+	{
+		map[playerY][playerX++] = BACKGROUND;
+		map[playerY][playerX] = SNAKE_HEAD;
+	}
 }
 
 void Map::UpdateSprite()
