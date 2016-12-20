@@ -14,6 +14,13 @@
 #include <string>
 
 class Map {
+public:
+enum Walk
+{
+	GO_FORWARD,
+	GO_LEFT,
+	GO_RIGHT
+};
 private:
 	int height;
 	int width;
@@ -27,6 +34,15 @@ enum Area
 	SNAKE_TAIL,
 	BACKGROUND
 };
+enum Direction
+{
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT,
+
+};
+Direction dir;
 Area **map;
 Sprite ***sprite;
 public:
@@ -35,8 +51,14 @@ public:
 	void Square();
 	void DrawMap();
 	void LoadLevel(std::string name);
-	void UpdateMap();
+	void UpdateMap(Walk);
 	void UpdateSprite();
+private:
+	void Move();
+	void MoveDown();
+	void MoveUp();
+	void MoveLeft();
+	void MoveRight();
 };
 
 #endif /* SRC_MAP_H_ */

@@ -29,16 +29,6 @@ int Jxt = 0, Jyt = 0, Jx = 0, Jy = 0, Jz = 0, JRz = 0;
 
 
 
-void Square()
-{
-	static int i = 0;
-	unsigned long* GRAPH = SCREENBUF;
-	for(int x = 0; x < 20;x++)
-		for(int y = 0; y < 20; y++)
-			SetPixel(GRAPH,x+(20*i),y,0xFFF);
-	if( i++ > 31)
-		i = 0;
-}
 
 int main(void) {
 	Map map(SCREENBUF);
@@ -51,7 +41,7 @@ int main(void) {
 		ClearScreen();
 	//	if (JoYAct.ButtonStates & BUTTON_SELECT) continue;
 	//	DrawObjects();
-		map.UpdateMap();
+		map.UpdateMap(Map::GO_LEFT);
 		map.UpdateSprite();
 		map.DrawMap();
 

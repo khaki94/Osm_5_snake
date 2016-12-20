@@ -7,7 +7,7 @@
 
 #include "Map.h"
 
-Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph)
+Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph), dir(RIGHT)
 {
 	map = new Area *[height];
 	for( int i = 0; i < height; i++)
@@ -94,17 +94,40 @@ void Map::DrawMap()
 		}
 }
 
-void Map::UpdateMap()
+void Map::UpdateMap(Walk _walk)
 {
-	if( playerX < width-2)
+	switch(_walk)
 	{
-		map[playerY][playerX++] = BACKGROUND;
-		map[playerY][playerX] = SNAKE_HEAD;
+	case(GO_FORWARD):
+		break;
+
+	case(GO_LEFT):
+		if(dir == UP)
+			dir = LEFT;
+		else if( dir == DOWN)
+			dir = RIGHT;
+		else if( dir == LEFT)
+			dir = DOWN;
+		else if( dir == RIGHT)
+			dir = UP;
+		break;
+
+	case(GO_RIGHT):
+		if(dir == UP)
+			dir = RIGHT;
+		else if( dir == DOWN)
+			dir = LEFT;
+		else if( dir == LEFT)
+			dir = UP;
+		else if( dir == RIGHT)
+			dir = DOWN;
+		break;
 	}
 }
 
 void Map::UpdateSprite()
 {
+	Move();
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
 		{
@@ -122,3 +145,53 @@ void Map::UpdateSprite()
 		}
 }
 
+void Map::Move()
+{
+	switch(dir)
+	{
+	case(UP):
+		MoveUp();
+		break;
+	case(DOWN):
+		MoveDown();
+		break;
+	case(LEFT):
+		MoveLeft();
+		break;
+	case(RIGHT):
+		MoveRight();
+		break;
+	}
+}
+void Map::MoveDown()
+{
+	if( map[playerY+1][playerX] != WALL)
+	{
+		map[playerY++][playerX] = BACKGROUND;
+		map[playerY][playerX] = SNAKE_HEAD;
+	}
+}
+void Map::MoveUp()
+{
+	if( map[playerY-1][playerX] != WALL)
+	{
+		map[playerY--][playerX] = BACKGROUND;
+		map[playerY][playerX] = SNAKE_HEAD;
+	}
+}
+void Map::MoveLeft()
+{
+	if( map[playerY][playerX-1] != WALL)
+	{
+		map[playerY][playerX--] = BACKGROUND;
+		map[playerY][playerX] = SNAKE_HEAD;
+	}
+}
+void Map::MoveRight()
+{
+	if( map[playerY][playerX+1] != WALL)
+	{
+		map[playerY][playerX++] = BACKGROUND;
+		map[playerY][playerX] = SNAKE_HEAD;
+	}
+}
