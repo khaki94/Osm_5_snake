@@ -32,6 +32,8 @@ public:
 	Sprite(unsigned long * _graph);
 	Sprite(int _x, int _y, unsigned long * _graph);
 	virtual ~Sprite();
+	int GetX() { return x; }
+	int GetY() { return y; }
 };
 
 class Background : public Sprite

@@ -56,7 +56,6 @@ Map::~Map()
 	}
 	delete[] sprite;
 
-
 }
 
 void Map::LoadLevel(std::string name)
@@ -106,4 +105,10 @@ void Map::UpdateSprite()
 				sprite[y][x] = new Food(x,y,graph);
 		}
 }
+
+Map::Area Map::GetCollision(int y, int x)
+{
+	return map[y][x];
+}
+
 

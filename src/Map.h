@@ -35,6 +35,7 @@ public:
 	void LoadLevel(std::string name);
 	void UpdateMap();
 	void UpdateSprite();
+    Area GetCollision(int y, int x);
 };
 
 #endif /* SRC_MAP_H_ */

@@ -24,6 +24,7 @@
 
 // moje klasy
 #include "Map.h"
+#include "Player.h"
 
 extern struct JoY JoYAct;
 int UpdateIO();

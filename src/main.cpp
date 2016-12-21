@@ -27,8 +27,29 @@ int stage = 0;
 int frame_count = 0;
 int Jxt = 0, Jyt = 0, Jx = 0, Jy = 0, Jz = 0, JRz = 0;
 
+// moje zmienne
+Player player(SCREENBUF);
+Map map(SCREENBUF);
+
+bool frame = true;
+int counter;
+
+Player::Direction GetKey()
+{
+	if(getKey() == 96 )
+		return Player::UP;
+	if(getKey() == 92 )
+		return Player::LEFT;
+	if(getKey() == 0 )
+		return Player::DOWN;
+	if(getKey() == 94 )
+		return Player::RIGHT;
+	return Player::NONE;
+}
+
 int main(void) {
-	Map map(SCREENBUF);
+
+
 	if (SystemInit())		return EXIT_HALT;
 	DataPrepare();
 	while (1) {
@@ -36,11 +57,17 @@ int main(void) {
 		PrintDiagnosticInfo();
 		Synchronize();
 		ClearScreen();
-	//	if (JoYAct.ButtonStates & BUTTON_SELECT) continue;
-	//	DrawObjects();
-		map.UpdateMap();
-		map.UpdateSprite();
+
+		if( frame )
+		{
+			// mapa
+			map.UpdateMap();
+			map.UpdateSprite();
+			// player
+		}
+
 		map.DrawMap();
+		player.Draw();
 
 	}
 }
@@ -57,6 +84,11 @@ void TimerIsr() {
 		RegisterSet(GPSET1, 1 << (47 - 32));
 	else
 		RegisterSet(GPCLR1, 1 << (47 - 32));
+	if( counter++ < (250 - player.GetSpeed()*25) )
+	{
+		frame = true;
+		counter = 0;
+	}
 }
 
 void DrawObjects() {
