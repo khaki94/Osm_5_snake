@@ -9,14 +9,17 @@
 
 Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph)
 {
+	// tworzenie Area
 	map = new Area *[height];
 	for( int i = 0; i < height; i++)
 	{
 		map[i] = new Area[width];
 	}
 
+	// Wczytanie mapy kafelkowej
 	LoadLevel("level1.txt");
 
+	// tworzenie sprite'ow
 	sprite = new Sprite **[height];
 	for( int i = 0; i < height; i++)
 	{
@@ -28,12 +31,8 @@ Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph)
 			if(map[y][x] == WALL)
 				sprite[y][x] = new Wall(x,y,graph);
 			else if (map[y][x] == BACKGROUND)
-				sprite[y][x] = new Background(x,y,graph);
-			else if (map[y][x] == SNAKE_TAIL)
 				sprite[y][x] = new SnakeTail(x,y,graph);
 			else if (map[y][x] == FOOD)
-				sprite[y][x] = new Food(x,y,graph);
-			else if (map[y][x] == SNAKE_HEAD)
 			{
 				playerY = y;
 				playerX = x;
@@ -74,14 +73,8 @@ void Map::LoadLevel(std::string name)
 			else if( tmp == 1)
 				map[y][x] = WALL;
 			else if( tmp == 2)
-				map[y][x] = SNAKE_TAIL;
-			else if( tmp == 3)
 				map[y][x] = FOOD;
-			else if( tmp == 4)
-				map[y][x] = SNAKE_HEAD;
-
-
-			}
+		}
 	file.close();
 }
 
@@ -96,11 +89,7 @@ void Map::DrawMap()
 
 void Map::UpdateMap()
 {
-	if( playerX < width-2)
-	{
-		map[playerY][playerX++] = BACKGROUND;
-		map[playerY][playerX] = SNAKE_HEAD;
-	}
+	// losuje pozycje Food
 }
 
 void Map::UpdateSprite()
@@ -113,12 +102,8 @@ void Map::UpdateSprite()
 				sprite[y][x] = new Wall(x,y,graph);
 			else if (map[y][x] == BACKGROUND)
 				sprite[y][x] = new Background(x,y,graph);
-			else if (map[y][x] == SNAKE_TAIL)
-				sprite[y][x] = new SnakeTail(x,y,graph);
 			else if (map[y][x] == FOOD)
 				sprite[y][x] = new Food(x,y,graph);
-			else if (map[y][x] == SNAKE_HEAD)
-				sprite[y][x] = new SnakeHead(x,y,graph);
 		}
 }
 

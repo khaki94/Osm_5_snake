@@ -23,8 +23,6 @@ enum Area
 {
 	WALL,
 	FOOD,
-	SNAKE_HEAD,
-	SNAKE_TAIL,
 	BACKGROUND
 };
 Area **map;
