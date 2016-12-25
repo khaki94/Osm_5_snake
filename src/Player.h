@@ -44,7 +44,10 @@ public:
 	{
 //		Point *tmp = new Point(4,5);
 //		wsp.push_back(tmp);
-		sprites.push_back(new SnakeHead(4,5,graph));
+		sprites.push_back(new SnakeHead(8,8,graph));
+		sprites.push_back(new SnakeTail(7,8,graph));
+		sprites.push_back(new SnakeTail(6,8,graph));
+		sprites.push_back(new SnakeTail(5,8,graph));
 	}
 
 	virtual ~Player()
@@ -97,7 +100,7 @@ public:
 				MoveRight();
 				break;
 		case(NONE):
-				// do nothing, but compliler is annoying with it warning;
+				// do nothing, but compliler is annoying with warnings;
 				break;
 		}
 	}
