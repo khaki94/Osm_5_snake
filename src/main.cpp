@@ -38,12 +38,13 @@ Player::Direction GetKey()
 {
 	if(getKey() == 96 )
 		return Player::UP;
-	if(getKey() == 92 )
+	else if(getKey() == 92 )
 		return Player::LEFT;
-	if(getKey() == 0 )
+	else if(getKey() == 93 )
 		return Player::DOWN;
-	if(getKey() == 94 )
+	else if(getKey() == 94 )
 		return Player::RIGHT;
+
 	return Player::NONE;
 }
 
@@ -60,6 +61,7 @@ int main(void) {
 
 		if( frame )
 		{
+			frame = false;
 			// mapa
 			map.UpdateMap();
 			map.UpdateSprite();
@@ -85,7 +87,7 @@ void TimerIsr() {
 		RegisterSet(GPSET1, 1 << (47 - 32));
 	else
 		RegisterSet(GPCLR1, 1 << (47 - 32));
-	if( counter++ < (250 - player.GetSpeed()*25) )
+	if( counter++ > (250 - player.GetSpeed()*25) )
 	{
 		frame = true;
 		counter = 0;
