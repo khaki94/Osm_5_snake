@@ -64,9 +64,10 @@ int main(void) {
 			map.UpdateMap();
 			map.UpdateSprite();
 			// player
+			player.Move(GetKey());
 		}
 
-		map.DrawMap();
+ 		map.DrawMap();
 		player.Draw();
 
 	}

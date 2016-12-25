@@ -31,13 +31,9 @@ Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph)
 			if(map[y][x] == WALL)
 				sprite[y][x] = new Wall(x,y,graph);
 			else if (map[y][x] == BACKGROUND)
-				sprite[y][x] = new SnakeTail(x,y,graph);
+				sprite[y][x] = new Background(x,y,graph);
 			else if (map[y][x] == FOOD)
-			{
-				playerY = y;
-				playerX = x;
-				sprite[y][x] = new SnakeHead(x,y,graph);
-			}
+				sprite[y][x] = new Food(x,y,graph);
 		}
 }
 Map::~Map()
