@@ -35,75 +35,23 @@ private:
 	unsigned long* graph;
 	Direction dir;
 
-//	std::vector<Point*> wsp;
 	std::vector<Sprite*> sprites;
 
 	// METODY
 public:
-	Player(unsigned long *_graph) : speed(0), size(16), graph(_graph), dir(RIGHT)
-	{
-//		Point *tmp = new Point(4,5);
-//		wsp.push_back(tmp);
-		sprites.push_back(new SnakeHead(8,8,graph));
-		sprites.push_back(new SnakeTail(7,8,graph));
-		sprites.push_back(new SnakeTail(6,8,graph));
-		sprites.push_back(new SnakeTail(5,8,graph));
-	}
-
-	virtual ~Player()
-	{
-		 std::vector<Sprite*>::iterator it;
-		 for(it = sprites.begin(); it != sprites.end(); it++ )
-		 {
-			 delete *it;
-		 }
-
-	}
+	Player(unsigned long *_graph);
+	virtual ~Player();
 	int GetSize() { return size; }
-	void Grow(int x, int y)
-	{
-		sprites.push_back(new SnakeHead(x,y,graph));
-	}
-	void Draw()
-	{
-		 std::vector<Sprite*>::iterator it;
-		 for(it = sprites.begin(); it != sprites.end(); it++ )
-		 {
-			 (*it)->Draw();
-		}
-	}
+	void Grow(int x, int y);
+	void Draw();
 	int GetX() { return sprites.front()->GetX(); }
 	int GetY() { return sprites.front()->GetY(); }
 
-	void CheckCollision()
-	{
-
-	}
+	void CheckCollision();
 	int GetSpeed() { return speed; }
 
-	void Move(Direction _dir)
-	{
-		if( _dir != NONE)
-			dir = _dir;
-		switch(dir)
-		{
-		case(UP):
-				MoveUp();
-				break;
-		case(LEFT):
-				MoveLeft();
-				break;
-		case(DOWN):
-				 MoveDown();
-				break;
-		case(RIGHT):
-				MoveRight();
-				break;
-		case(NONE):
-				// do nothing, but compliler is annoying with warnings;
-				break;
-		}
-	}
+	void Move(Direction _dir);
+
 private:
 	void MoveUp();
 	void MoveLeft();
