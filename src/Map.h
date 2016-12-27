@@ -14,16 +14,18 @@
 #include <string>
 
 class Map {
+public:
+	enum Area
+	{
+		WALL,
+		FOOD,
+		BACKGROUND
+	};
 private:
 	int height;
 	int width;
 	unsigned long * graph;
-enum Area
-{
-	WALL,
-	FOOD,
-	BACKGROUND
-};
+
 Area **map;
 Sprite ***sprite;
 public:

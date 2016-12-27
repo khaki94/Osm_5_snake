@@ -34,12 +34,13 @@ private:
 	int size;
 	unsigned long* graph;
 	Direction dir;
-
+	Map *map;
+	int x,y;		// wspolrzedne glowy
 	std::vector<Sprite*> sprites;
 
 	// METODY
 public:
-	Player(unsigned long *_graph);
+	Player(unsigned long *_graph, Map *_map);
 	virtual ~Player();
 	int GetSize() { return size; }
 	void Grow(int x, int y);
@@ -57,6 +58,7 @@ private:
 	void MoveLeft();
 	void MoveDown();
 	void MoveRight();
+	void Move();
 };
 
 #endif /* SRC_PLAYER_H_ */

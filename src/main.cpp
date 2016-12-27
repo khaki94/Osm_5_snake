@@ -28,8 +28,8 @@ int frame_count = 0;
 int Jxt = 0, Jyt = 0, Jx = 0, Jy = 0, Jz = 0, JRz = 0;
 
 // moje zmienne
-Player player(SCREENBUF);
 Map map(SCREENBUF);
+Player player(SCREENBUF,&map);
 
 bool frame = true;
 int counter;
