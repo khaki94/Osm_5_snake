@@ -12,6 +12,7 @@
 #include "Sprite.h"
 #include <fstream>
 #include <string>
+#include <ctime>
 
 class Map {
 public:
@@ -28,6 +29,8 @@ private:
 
 Area **map;
 Sprite ***sprite;
+bool isFood;
+int foodX,foodY;
 public:
 	Map(unsigned long*);
 	virtual ~Map();
@@ -36,6 +39,8 @@ public:
 	void LoadLevel(std::string name);
 	void UpdateMap();
 	void UpdateSprite();
+	void SetFood();
+	void EatFood() { isFood = false; map[foodY][foodX] = BACKGROUND; }
     Area GetCollision(int y, int x);
 };
 

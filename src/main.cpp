@@ -4,7 +4,7 @@
 
 #include "main.h"
 #include "stdio.h"
-
+#include <time.h>
 
 #ifdef RPiLAB_WIN
 char credits[51]="        RPiLAB                DEMO                ";
@@ -65,6 +65,7 @@ int main(void) {
 			// mapa
 			map.UpdateMap();
 			map.UpdateSprite();
+			map.SetFood();
 			// player
 			player.Move(GetKey());
 		}

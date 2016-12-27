@@ -7,7 +7,7 @@
 
 #include "Map.h"
 
-Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph)
+Map::Map(unsigned long *_graph): height(30), width(40), graph(_graph), isFood(false)
 {
 	// tworzenie Area
 	map = new Area *[height];
@@ -107,4 +107,13 @@ Map::Area Map::GetCollision(int y, int x)
 	return map[y][x];
 }
 
-
+void Map::SetFood()
+{
+	if(!isFood)
+	{
+		foodX = time(NULL)%38+1;
+		foodY = time(NULL)%26+3;
+		isFood = true;
+		map[foodY][foodX] = FOOD;
+	}
+}

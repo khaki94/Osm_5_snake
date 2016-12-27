@@ -6,7 +6,7 @@
  */
 #include "Player.h"
 
-Player::Player(unsigned long *_graph, Map *_map) : speed(0), size(0), graph(_graph), dir(RIGHT)
+Player::Player(unsigned long *_graph, Map *_map) : speed(0), size(0), graph(_graph), dir(RIGHT), isFood(false)
 {
 	map = _map;
 //		Point *tmp = new Point(4,5);
@@ -33,7 +33,9 @@ Player::~Player()
 }
 void Player::Grow(int x, int y)
 {
-	sprites.push_back(new SnakeHead(x,y,graph));
+	sprites.insert(sprites.begin()+1,new SnakeTail(x,y,graph));
+//	sprites.push_back();
+	size++;
 }
 void Player::Draw()
 {
@@ -90,6 +92,7 @@ void Player::MoveUp()
 	{
 		Grow(sprites.front()->GetX(),sprites.front()->GetY());
 		sprites.front()->SetY(sprites.front()->GetY()-1);
+		map->EatFood();
 	}
 }
 void Player::MoveLeft()
@@ -105,8 +108,9 @@ void Player::MoveLeft()
 	}
 	else if(map->GetCollision(y,x-1) == Map::FOOD)
 	{
-		Grow(sprites.front()->GetX(),sprites.front()->GetX());
+		Grow(sprites.front()->GetX(),sprites.front()->GetY());
 		sprites.front()->SetX(sprites.front()->GetX()-1);
+		map->EatFood();
 	}
 }
 void Player::MoveDown()
@@ -122,8 +126,9 @@ void Player::MoveDown()
 	}
 	else if(map->GetCollision(y+1,x) == Map::FOOD)
 	{
-		Grow(sprites.front()->GetY(),sprites.front()->GetY());
+		Grow(sprites.front()->GetX(),sprites.front()->GetY());
 		sprites.front()->SetY(sprites.front()->GetY()+1);
+		map->EatFood();
 	}
 }
 void Player::MoveRight()
@@ -139,8 +144,9 @@ void Player::MoveRight()
 	}
 	else if(map->GetCollision(y,x+1) == Map::FOOD)
 	{
-		Grow(sprites.front()->GetX(),sprites.front()->GetX());
+		Grow(sprites.front()->GetX(),sprites.front()->GetY());
 		sprites.front()->SetX(sprites.front()->GetX()+1);
+		map->EatFood();
 	}
 }
 

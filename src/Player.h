@@ -36,6 +36,8 @@ private:
 	Direction dir;
 	Map *map;
 	int x,y;		// wspolrzedne glowy
+	bool isFood;
+
 	std::vector<Sprite*> sprites;
 
 	// METODY
@@ -52,6 +54,9 @@ public:
 	int GetSpeed() { return speed; }
 
 	void Move(Direction _dir);
+
+	void SetIsFood(bool _is) { isFood = _is;}
+
 
 private:
 	void MoveUp();
