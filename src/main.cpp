@@ -35,17 +35,30 @@ Alfabet alfabet(SCREENBUF);
 
 bool frame = true;
 int counter;
+int dir = 0;
 
 Player::Direction GetKey()
 {
-	if(getKey() == 96 )
+	if(dir == 96 )
+	{
+		dir = 0;
 		return Player::UP;
-	else if(getKey() == 92 )
+	}
+	else if(dir == 92 )
+	{
+		dir = 0;
 		return Player::LEFT;
-	else if(getKey() == 93 )
+	}
+	else if(dir == 93 )
+	{
+		dir = 0;
 		return Player::DOWN;
-	else if(getKey() == 94 )
+	}
+	else if(dir == 94 )
+	{
+		dir = 0;
 		return Player::RIGHT;
+	}
 
 	return Player::NONE;
 }
@@ -76,19 +89,25 @@ int main(void) {
 		Synchronize();
 		ClearScreen();
 
+		if(getKey() != 0)
+			dir = getKey();
 		if( frame )
 		{
 			frame = false;
 
-			if(getKey() == 87)
+			if(dir == 87)
+			{
 				player.Pause();
-			if(getKey() == 98 )
+				dir = 0;
+			}
+			if(dir == 98 )
+			{
 				player.Reset();
-
+				dir = 0;
+			}
 			if( player.GetLive() && !player.GetPause())
 			{
 				// mapa
-				map.UpdateMap();
 				map.UpdateSprite(player.GetLive());
 				map.SetFood();
 				// player
@@ -97,6 +116,7 @@ int main(void) {
 			else if(!player.GetLive())
 			{
 				map.UpdateSprite(player.GetLive());
+				map.Reset();
 			}
 		}
  		map.DrawMap();

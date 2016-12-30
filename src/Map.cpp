@@ -82,11 +82,6 @@ void Map::DrawMap()
 		}
 }
 
-void Map::UpdateMap()
-{
-	// losuje pozycje Food
-}
-
 void Map::UpdateSprite(bool gameOver)
 {
 	for(int y = 0; y < height; y++)
@@ -116,9 +111,12 @@ void Map::SetFood()
 {
 	if(!isFood)
 	{
-		foodX = time(NULL)%38+1;
-		foodY = time(NULL)%26+3;
-		isFood = true;
+		do
+		{
+			foodX = (time(NULL)%60 + foodY)%38+1;
+			foodY = (time(NULL)%40 + foodX)%26+3;
+		}while(GetCollision(foodY,foodX) != BACKGROUND);
 		map[foodY][foodX] = FOOD;
+		isFood = true;
 	}
 }

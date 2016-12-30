@@ -94,7 +94,7 @@ void Alfabet::Draw(int *tab, int pos)
 		for( int x = 0; x < 32; x++)
 		{
 			if(tab[y*32+x] == 1)
-				SetPixel(graph,(x+(32*pos)),y,0);
+				SetPixel(graph,(x+(32*pos)),y,0xFF00FF);
 		}
 }
 

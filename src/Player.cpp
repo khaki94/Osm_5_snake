@@ -53,6 +53,8 @@ bool Player::CheckCollision(int x, int y)
 	{
 		if( sprites[i]->GetX() == x && sprites[i]->GetY() == y)
 			return false;
+		if(map->GetCollision(sprites[i]->GetY(),sprites[i]->GetX()-1) == Map::FOOD )
+			map->EatFood();
 	}
 	return true;
 }
