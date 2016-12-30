@@ -37,6 +37,7 @@ private:
 	Map *map;
 	int x,y;		// wspolrzedne glowy
 	bool isFood;
+	int point;
 
 	std::vector<Sprite*> sprites;
 
@@ -57,6 +58,7 @@ public:
 
 	void SetIsFood(bool _is) { isFood = _is;}
 
+	void AddPoint(int _add) { point += _add;}
 
 private:
 	void MoveUp();

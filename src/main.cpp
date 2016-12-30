@@ -48,6 +48,21 @@ Player::Direction GetKey()
 	return Player::NONE;
 }
 
+void fun()
+{
+	std::fstream file;
+	file.open("alfabet\\8.txt",std::ios::in);
+	int tmp = 0;
+	for(int y = 0; y < 32; y++)
+		for(int x = 0; x < 32; x++ )
+		{
+			file >> tmp;
+			if(tmp == 1)
+				SetPixel(SCREENBUF,x,y,0xFF0000);
+		}
+	file.close();
+}
+
 int main(void) {
 
 
@@ -69,9 +84,9 @@ int main(void) {
 			// player
 			player.Move(GetKey());
 		}
-
  		map.DrawMap();
 		player.Draw();
+		fun();
 
 	}
 }

@@ -6,7 +6,7 @@
  */
 #include "Player.h"
 
-Player::Player(unsigned long *_graph, Map *_map) : speed(0), size(0), graph(_graph), dir(RIGHT), isFood(false)
+Player::Player(unsigned long *_graph, Map *_map) : speed(0), size(0), graph(_graph), dir(RIGHT), isFood(false), point(0)
 {
 	map = _map;
 //		Point *tmp = new Point(4,5);
@@ -93,6 +93,7 @@ void Player::MoveUp()
 		Grow(sprites.front()->GetX(),sprites.front()->GetY());
 		sprites.front()->SetY(sprites.front()->GetY()-1);
 		map->EatFood();
+		AddPoint(10);
 	}
 }
 void Player::MoveLeft()
@@ -111,6 +112,7 @@ void Player::MoveLeft()
 		Grow(sprites.front()->GetX(),sprites.front()->GetY());
 		sprites.front()->SetX(sprites.front()->GetX()-1);
 		map->EatFood();
+		AddPoint(10);
 	}
 }
 void Player::MoveDown()
@@ -129,6 +131,7 @@ void Player::MoveDown()
 		Grow(sprites.front()->GetX(),sprites.front()->GetY());
 		sprites.front()->SetY(sprites.front()->GetY()+1);
 		map->EatFood();
+		AddPoint(10);
 	}
 }
 void Player::MoveRight()
@@ -147,6 +150,7 @@ void Player::MoveRight()
 		Grow(sprites.front()->GetX(),sprites.front()->GetY());
 		sprites.front()->SetX(sprites.front()->GetX()+1);
 		map->EatFood();
+		AddPoint(10);
 	}
 }
 
