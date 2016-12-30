@@ -87,12 +87,17 @@ void Map::UpdateMap()
 	// losuje pozycje Food
 }
 
-void Map::UpdateSprite()
+void Map::UpdateSprite(bool gameOver)
 {
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
 		{
 			delete sprite[y][x];
+			if(!gameOver)
+			{
+				sprite[y][x] = new Wall(x,y,graph);
+				continue;
+			}
 			if(map[y][x] == WALL)
 				sprite[y][x] = new Wall(x,y,graph);
 			else if (map[y][x] == BACKGROUND)

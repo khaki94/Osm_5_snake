@@ -5,6 +5,7 @@
 #include "main.h"
 #include "stdio.h"
 #include <time.h>
+#include "Alfabet.h"
 
 #ifdef RPiLAB_WIN
 char credits[51]="        RPiLAB                DEMO                ";
@@ -30,6 +31,7 @@ int Jxt = 0, Jyt = 0, Jx = 0, Jy = 0, Jz = 0, JRz = 0;
 // moje zmienne
 Map map(SCREENBUF);
 Player player(SCREENBUF,&map);
+Alfabet alfabet(SCREENBUF);
 
 bool frame = true;
 int counter;
@@ -77,17 +79,30 @@ int main(void) {
 		if( frame )
 		{
 			frame = false;
-			// mapa
-			map.UpdateMap();
-			map.UpdateSprite();
-			map.SetFood();
-			// player
-			player.Move(GetKey());
+
+			if(getKey() == 87)
+				player.Pause();
+			if(getKey() == 98 )
+				player.Reset();
+
+			if( player.GetLive() && !player.GetPause())
+			{
+				// mapa
+				map.UpdateMap();
+				map.UpdateSprite(player.GetLive());
+				map.SetFood();
+				// player
+				player.Move(GetKey());
+			}
+			else if(!player.GetLive())
+			{
+				map.UpdateSprite(player.GetLive());
+			}
 		}
  		map.DrawMap();
 		player.Draw();
-		fun();
-
+//		fun();
+		alfabet.SetScore(player.getPoint());
 	}
 }
 
@@ -103,7 +118,7 @@ void TimerIsr() {
 		RegisterSet(GPSET1, 1 << (47 - 32));
 	else
 		RegisterSet(GPCLR1, 1 << (47 - 32));
-	if( counter++ > (250 - player.GetSpeed()*25) )
+	if( counter++ > (250 - player.GetSpeed()*35) )
 	{
 		frame = true;
 		counter = 0;

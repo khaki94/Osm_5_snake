@@ -89,4 +89,5 @@ public:
 	virtual ~SnakeTail();
 	void Draw();
 };
+
 #endif /* SRC_SPRITE_H_ */

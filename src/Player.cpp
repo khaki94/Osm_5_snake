@@ -6,15 +6,16 @@
  */
 #include "Player.h"
 
-Player::Player(unsigned long *_graph, Map *_map) : speed(0), size(0), graph(_graph), dir(RIGHT), isFood(false), point(0)
+Player::Player(unsigned long *_graph, Map *_map) : speed(0), size(0), graph(_graph), dir(RIGHT), isFood(false), point(0),
+pause(false), isAlive(false)
 {
 	map = _map;
 //		Point *tmp = new Point(4,5);
 //		wsp.push_back(tmp);
 	sprites.push_back(new SnakeHead(8,8,graph));
 	sprites.push_back(new SnakeTail(7,8,graph));
-	sprites.push_back(new SnakeTail(6,8,graph));
-	sprites.push_back(new SnakeTail(5,8,graph));
+//	sprites.push_back(new SnakeTail(6,8,graph));
+//	sprites.push_back(new SnakeTail(5,8,graph));
 
 	size = sprites.size();
 
@@ -45,9 +46,15 @@ void Player::Draw()
 		(*it)->Draw();
 	}
 }
-void Player::CheckCollision()
+// true, jezeli nie ma kolizji
+bool Player::CheckCollision(int x, int y)
 {
-	// sprawdza kolizje
+	for(int i = 1; i < size; i++)
+	{
+		if( sprites[i]->GetX() == x && sprites[i]->GetY() == y)
+			return false;
+	}
+	return true;
 }
 
 void Player::Move(Direction _dir)
@@ -75,18 +82,22 @@ void Player::Move(Direction _dir)
 		// do nothing, but compliler is annoying with warnings;
 		break;
 	}
+
+	speed = point/100;
+	if(speed > 10)
+		speed = 10;
 }
 
 void Player::MoveUp()
 {
-	if(map->GetCollision(y-1,x) == Map::BACKGROUND)
+	if(map->GetCollision(y-1,x) == Map::WALL || !CheckCollision(x,y-1))
+	{
+		SetLive(false);
+	}
+	else if(map->GetCollision(y-1,x) == Map::BACKGROUND)
 	{
 		Move();
 		sprites.front()->SetY(sprites.front()->GetY()-1);
-	}
-	else if(map->GetCollision(y-1,x) == Map::WALL)
-	{
-
 	}
 	else if(map->GetCollision(y-1,x) == Map::FOOD)
 	{
@@ -98,14 +109,14 @@ void Player::MoveUp()
 }
 void Player::MoveLeft()
 {
-	if(map->GetCollision(y,x-1) == Map::BACKGROUND)
+	if(map->GetCollision(y,x-1) == Map::WALL || !CheckCollision(x-1,y))
+	{
+		SetLive(false);
+	}
+	else if(map->GetCollision(y,x-1) == Map::BACKGROUND)
 	{
 		Move();
 		sprites.front()->SetX(sprites.front()->GetX()-1);
-	}
-	else if(map->GetCollision(y,x-1) == Map::WALL)
-	{
-
 	}
 	else if(map->GetCollision(y,x-1) == Map::FOOD)
 	{
@@ -117,14 +128,14 @@ void Player::MoveLeft()
 }
 void Player::MoveDown()
 {
-	if(map->GetCollision(y+1,x) == Map::BACKGROUND)
+	if(map->GetCollision(y+1,x) == Map::WALL || !CheckCollision(x,y+1))
+	{
+		SetLive(false);
+	}
+	else if(map->GetCollision(y+1,x) == Map::BACKGROUND)
 	{
 		Move();
 		sprites.front()->SetY(sprites.front()->GetY()+1);
-	}
-	else if(map->GetCollision(y+1,x) == Map::WALL)
-	{
-
 	}
 	else if(map->GetCollision(y+1,x) == Map::FOOD)
 	{
@@ -136,14 +147,14 @@ void Player::MoveDown()
 }
 void Player::MoveRight()
 {
-	if(map->GetCollision(y,x+1) == Map::BACKGROUND)
+	if(map->GetCollision(y,x+1) == Map::WALL || !CheckCollision(x+1,y))
+	{
+		SetLive(false);
+	}
+	else if(map->GetCollision(y,x+1) == Map::BACKGROUND)
 	{
 		Move();
 		sprites.front()->SetX(sprites.front()->GetX()+1);
-	}
-	else if(map->GetCollision(y,x+1) == Map::WALL)
-	{
-
 	}
 	else if(map->GetCollision(y,x+1) == Map::FOOD)
 	{
@@ -168,6 +179,29 @@ void Player::Move()
 		x = tmpX;
 		y = tmpY;
 	}
+}
+
+void Player::Reset()
+{
+	std::vector<Sprite*>::iterator it;
+	for(it = sprites.begin()+2; it != sprites.end(); it++ )
+	{
+		delete *it;
+	}
+	for(int i = 2; i < size; i++)
+	{
+		sprites.pop_back();
+	}
+	sprites.front()->SetX(5);
+	sprites.front()->SetY(5);
+	sprites[1]->SetX(4);
+	sprites[1]->SetY(5);
+	point = 0;
+	pause = false;
+	isAlive = true;
+	size = 2;
+	dir = RIGHT;
+	speed = 0;
 }
 
 

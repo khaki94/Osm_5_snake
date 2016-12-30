@@ -38,10 +38,11 @@ public:
 	void DrawMap();
 	void LoadLevel(std::string name);
 	void UpdateMap();
-	void UpdateSprite();
+	void UpdateSprite(bool);
 	void SetFood();
 	void EatFood() { isFood = false; map[foodY][foodX] = BACKGROUND; }
     Area GetCollision(int y, int x);
+    void GameOver();
 };
 
 #endif /* SRC_MAP_H_ */

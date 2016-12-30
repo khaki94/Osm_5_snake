@@ -38,6 +38,8 @@ private:
 	int x,y;		// wspolrzedne glowy
 	bool isFood;
 	int point;
+	bool pause;
+	bool isAlive;
 
 	std::vector<Sprite*> sprites;
 
@@ -51,7 +53,7 @@ public:
 	int GetX() { return sprites.front()->GetX(); }
 	int GetY() { return sprites.front()->GetY(); }
 
-	void CheckCollision();
+	bool CheckCollision(int x, int y);
 	int GetSpeed() { return speed; }
 
 	void Move(Direction _dir);
@@ -59,6 +61,17 @@ public:
 	void SetIsFood(bool _is) { isFood = _is;}
 
 	void AddPoint(int _add) { point += _add;}
+	int getPoint() {return point; }
+
+	void Pause() { pause = !pause; }
+
+	void SetLive( bool _live ) { isAlive = _live; }
+
+	bool GetLive() { return isAlive; }
+
+	bool GetPause() { return pause; }
+
+	void Reset();
 
 private:
 	void MoveUp();
